@@ -5,23 +5,21 @@ import { AppProvider } from "./context/AppContext";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "sonner";
 
+const toasterStyle = {
+  background: "#050812",
+  border: "1px solid #00f0ff",
+  color: "#e0ffff",
+  fontFamily: "Space Mono, monospace",
+  borderRadius: 0,
+};
+
+const toasterOptions = { style: toasterStyle };
+
 function App() {
   return (
     <AppProvider>
       <Dashboard />
-      <Toaster
-        theme="dark"
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "#050812",
-            border: "1px solid #00f0ff",
-            color: "#e0ffff",
-            fontFamily: "Space Mono, monospace",
-            borderRadius: 0,
-          },
-        }}
-      />
+      <Toaster theme="dark" position="bottom-right" toastOptions={toasterOptions} />
     </AppProvider>
   );
 }

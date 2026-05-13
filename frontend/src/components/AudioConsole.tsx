@@ -7,7 +7,7 @@ export const AudioConsole: React.FC = () => {
   const [muted, setMuted] = useState(false);
   const [status, setStatus] = useState<"idle" | "listening" | "speaking">("idle");
 
-  const bars = Array.from({ length: 36 });
+  const bars = React.useMemo(() => Array.from({ length: 36 }, (_, i) => `bar-${i}`), []);
 
   return (
     <RetroWindow
@@ -18,9 +18,9 @@ export const AudioConsole: React.FC = () => {
     >
       <div className="navi-console p-2 h-full flex flex-col gap-2">
         <div className="flex items-end h-12 gap-[2px]">
-          {bars.map((_, i) => (
+          {bars.map((id, i) => (
             <span
-              key={i}
+              key={id}
               className="bar"
               style={{
                 animationDelay: `${(i * 60) % 900}ms`,
