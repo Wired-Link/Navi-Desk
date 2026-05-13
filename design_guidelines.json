@@ -1,0 +1,105 @@
+{
+  "theme": {
+    "mode": "dark",
+    "archetype": "7 - Electric & Neon (Retro-Futurism/Terminal variant)",
+    "mood": "Eerie 90s anime computer interface, Serial Experiments Lain (Copland OS Navi), CRT cyber-dystopia"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "VT323, monospace",
+      "styles": "uppercase tracking-[0.2em] text-cyan-400 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]"
+    },
+    "body": {
+      "font_family": "'Space Mono', 'Fira Code', monospace",
+      "styles": "text-sm text-cyan-100/90 leading-relaxed"
+    },
+    "terminal": {
+      "font_family": "'Courier Prime', 'Courier New', monospace",
+      "styles": "text-xs tracking-tight"
+    },
+    "rules": [
+      "No rounded sans-serifs. Strictly terminal, pixel, and monospaced typography.",
+      "Uppercase for all module titles and button labels."
+    ]
+  },
+  "color_palette": {
+    "background": {
+      "app": "#02040a",
+      "panel": "#050812",
+      "console": "#000000"
+    },
+    "borders": {
+      "default": "#00f0ff",
+      "turquoise": "#1a9988",
+      "glow": "rgba(0, 240, 255, 0.4)",
+      "accent": "#9d4cdd"
+    },
+    "text": {
+      "primary": "#e0ffff",
+      "secondary": "#00f0ff",
+      "muted": "#4b7982",
+      "highlight": "#ffffff"
+    },
+    "status": {
+      "online": "#00ff41",
+      "warning": "#ff8c00",
+      "error": "#ff003c",
+      "purple_accent": "#9d4cdd"
+    },
+    "rules": [
+      "Avoid muddy grays. Use dark navy tints for neutrals.",
+      "All panels must have a 1px solid border with a cyan drop-shadow to simulate CRT phosphor bleed."
+    ]
+  },
+  "layout_and_spacing": {
+    "desktop": "A fixed viewport layout (h-screen w-screen overflow-hidden) to simulate a true desktop OS. Do not use standard vertical scrolling for the whole page. Scroll inside panels only.",
+    "grid": "CSS Grid / Bento-box style mimicking floating windows. grid-cols-12 with dense packing.",
+    "panels": "Each panel needs a thick top 'chrome' bar (like a retro OS window header) displaying the module name, e.g., '[ SISTEMA_ACTIVO ]'.",
+    "spacing": "Tight padding inside terminal areas (p-2). Moderate padding for settings (p-4)."
+  },
+  "css_effects_and_animations": {
+    "crt_scanlines": "Add a global ::before overlay with a repeating linear-gradient (transparent 50%, rgba(0,0,0,0.25) 50%) at background-size: 100% 4px. Use pointer-events-none.",
+    "flicker": "Subtle opacity animation on the entire container to simulate an unstable CRT connection.",
+    "glow": "Box-shadows inside and outside window panels.",
+    "vhs_distortion": "Applied to the Avatar Video Panel specifically, combining CSS blur and the provided Unsplash glitch textures."
+  },
+  "components": {
+    "top_system_bar": "Fixed at the top. Displays OS version (Navi v7.0), current time (timestamps), user (admin), network status.",
+    "terminal_console": "The main focus. Darkest background (#000). Contains tabs (CHAT, COMPARTIR, COMANDOS). Timestamp on every line. Blinking cursor block. Bright green or cyan text.",
+    "avatar_video_panel": "Square aspect ratio. Uses the vhs_glitch image as an overlay. Labels like 'PLAY', 'CH02', 'SIGNAL', 'CONNECTED' overlayed in pure white or bright orange. The content behind the glitch should be eerie/abstract.",
+    "audio_waveform": "Visualizer mimicking audio frequencies. Can be a series of divs animating their heights, colored in neon cyan/purple gradients.",
+    "module_status": "6 grid blocks. Shows CPU/RAM bars (made of ASCII blocks like ▓▓▓▓░░), status (ONLINE/OFFLINE), last ping.",
+    "task_queue": "A list of pending/running/completed tasks. Prefix with status glyphs (e.g. [>] running, [*] pending).",
+    "logs_viewer": "Fast-moving terminal window. Auto-scrolling. Red text for errors, yellow for security. Buttons for filtering.",
+    "prompt_templates": "Cards designed like retro floppy disks or data-shards. Hover effect adds a purple glow.",
+    "tools_agents": "Table layout. Columns: Habilitado, Modo, Riesgo (Risk). Risk highlights in Orange/Red.",
+    "secrets_panel": "Input fields with masked characters (****). Neon borders on focus. 'Desbloquear' (Unlock) button.",
+    "recovery_settings": "Toggles for EN/ES/JA, Theme (CRT/Clean), Scanline Intensity. Use brutalist HTML-like checkboxes or toggles.",
+    "security_audit": "Chart or timeline of security events.",
+    "status_footer": "Fixed at bottom. Running ticker of background processes and connection strength."
+  },
+  "media_and_icons": {
+    "icons_strategy": "Use Phosphor Icons (sharp/duotone) or pure ASCII characters ([, ], >, #, *). Avoid overly modern rounded icons.",
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1765445774035-9bb028f7b205?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHx2aHMlMjBnbGl0Y2glMjB0ZXh0dXJlJTIwY3J0fGVufDB8fHx8MTc3ODYzNDg4NHww&ixlib=rb-4.1.0&q=85",
+        "category": "vhs_overlay_1",
+        "description": "Abstract colorful glitch art, use for Avatar video panel overlay with mix-blend-mode: overlay."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765410854540-a902502dcdd4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHx2aHMlMjBnbGl0Y2glMjB0ZXh0dXJlJTIwY3J0fGVufDB8fHx8MTc3ODYzNDg4NHww&ixlib=rb-4.1.0&q=85",
+        "category": "vhs_overlay_2",
+        "description": "Abstract pink/brown glitch art, use for alternative noise/distortion effect."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install VT323 and Space Mono from Google Fonts in index.html.",
+    "Add custom .crt utility in index.css for the global scanline effect.",
+    "Implement the layout as a full-viewport (h-screen w-screen) Dashboard containing floating, bordered panels.",
+    "Ensure UI language defaults to Spanish (e.g., 'COMANDOS', 'SISTEMA', 'CONECTADO').",
+    "For the Avatar panel, use absolute positioning to overlay the VHS image with mix-blend-screen or opacity-30.",
+    "Include data-testid attributes on all buttons, tabs, and form elements.",
+    "Do not use Shadcn card rounded corners; override rounded components to use sharp edges (rounded-none)."
+  ]
+}
