@@ -2,114 +2,256 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --navi-bg: #02040a;
+  --navi-panel: #050812;
+  --navi-console: #000000;
+  --navi-cyan: #00f0ff;
+  --navi-cyan-soft: #1a9988;
+  --navi-cyan-glow: rgba(0, 240, 255, 0.45);
+  --navi-purple: #9d4cdd;
+  --navi-text: #e0ffff;
+  --navi-muted: #4b7982;
+  --navi-online: #00ff41;
+  --navi-warn: #ff8c00;
+  --navi-error: #ff003c;
+  --scanline-alpha: 0.22;
+
+  /* shadcn tokens mapped to retro */
+  --background: 220 60% 3%;
+  --foreground: 180 100% 94%;
+  --card: 220 60% 5%;
+  --card-foreground: 180 100% 94%;
+  --popover: 220 60% 5%;
+  --popover-foreground: 180 100% 94%;
+  --primary: 184 100% 50%;
+  --primary-foreground: 220 60% 3%;
+  --secondary: 220 30% 10%;
+  --secondary-foreground: 180 100% 94%;
+  --muted: 220 30% 10%;
+  --muted-foreground: 190 30% 50%;
+  --accent: 277 65% 58%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 348 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 184 100% 35%;
+  --input: 184 100% 25%;
+  --ring: 184 100% 50%;
+  --radius: 0;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--navi-bg);
+  color: var(--navi-text);
+  font-family: "Space Mono", "Courier Prime", "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
 body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(ellipse at top, rgba(0, 240, 255, 0.06), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(157, 76, 221, 0.05), transparent 60%),
+    var(--navi-bg);
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+/* Global CRT scanlines overlay */
+.crt-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, var(--scanline-alpha)) 3px,
+    rgba(0, 0, 0, var(--scanline-alpha)) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: multiply;
 }
 
-@layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+.crt-overlay::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 9997;
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+.crt-flicker {
+  animation: crtflicker 6s infinite steps(60);
 }
 
-@layer base {
-    [data-debug-wrapper="true"] {
-        display: contents !important;
-    }
+@keyframes crtflicker {
+  0%, 100% { opacity: 1; }
+  47% { opacity: 0.985; }
+  48% { opacity: 0.94; }
+  49% { opacity: 1; }
+  72% { opacity: 0.97; }
+  73% { opacity: 1; }
+}
 
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
-    }
+.navi-panel {
+  background: var(--navi-panel);
+  border: 1px solid var(--navi-cyan);
+  box-shadow:
+    0 0 0 1px rgba(0, 240, 255, 0.15),
+    inset 0 0 24px rgba(0, 240, 255, 0.05),
+    0 0 18px var(--navi-cyan-glow);
+}
+
+.navi-panel-soft {
+  background: var(--navi-panel);
+  border: 1px solid var(--navi-cyan-soft);
+}
+
+.navi-chrome {
+  background: linear-gradient(to bottom, #0a1828, #050a14);
+  border-bottom: 1px solid var(--navi-cyan);
+  text-shadow: 0 0 6px var(--navi-cyan-glow);
+}
+
+.navi-console {
+  background: var(--navi-console);
+  border: 1px solid var(--navi-cyan-soft);
+  font-family: "VT323", "Courier Prime", monospace;
+}
+
+.navi-text-glow {
+  text-shadow: 0 0 6px var(--navi-cyan-glow);
+}
+
+.navi-btn {
+  background: transparent;
+  border: 1px solid var(--navi-cyan-soft);
+  color: var(--navi-cyan);
+  padding: 4px 10px;
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+
+.navi-btn:hover {
+  border-color: var(--navi-cyan);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 12px var(--navi-cyan-glow);
+  color: #ffffff;
+}
+
+.navi-btn-danger {
+  border-color: var(--navi-error);
+  color: var(--navi-error);
+}
+.navi-btn-danger:hover {
+  background: rgba(255, 0, 60, 0.08);
+  box-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+}
+
+.navi-btn-warn {
+  border-color: var(--navi-warn);
+  color: var(--navi-warn);
+}
+.navi-btn-warn:hover {
+  background: rgba(255, 140, 0, 0.08);
+  box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+}
+
+.navi-input {
+  background: #000;
+  border: 1px solid var(--navi-cyan-soft);
+  color: var(--navi-text);
+  font-family: "Space Mono", monospace;
+  padding: 6px 10px;
+  font-size: 13px;
+  outline: none;
+}
+.navi-input:focus {
+  border-color: var(--navi-cyan);
+  box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.18);
+}
+
+.font-pixel { font-family: "VT323", monospace; }
+.font-mono-r { font-family: "Space Mono", monospace; }
+.font-terminal { font-family: "Courier Prime", monospace; }
+
+.cursor-blink::after {
+  content: "▌";
+  animation: blink 1s steps(2) infinite;
+  color: var(--navi-cyan);
+  margin-left: 2px;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #02040a; }
+::-webkit-scrollbar-thumb {
+  background: var(--navi-cyan-soft);
+  border: 1px solid var(--navi-cyan-soft);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--navi-cyan); }
+
+/* VHS noise animation for avatar panel */
+.vhs-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0.6 0 0 0 0 0.8 0 0 0 0.18 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-size: 220px;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  animation: vhsshift 220ms steps(2) infinite;
+  pointer-events: none;
+}
+@keyframes vhsshift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-3px, 2px); }
+  100% { transform: translate(2px, -1px); }
+}
+
+/* Audio waveform bars */
+.bar {
+  display: inline-block;
+  width: 3px;
+  margin-right: 2px;
+  background: var(--navi-cyan);
+  box-shadow: 0 0 6px var(--navi-cyan-glow);
+  animation: barbeat 900ms ease-in-out infinite;
+}
+@keyframes barbeat {
+  0%, 100% { height: 20%; }
+  50% { height: 100%; }
+}
+
+.theme-clean .crt-overlay::before,
+.theme-clean .crt-overlay::after { display: none !important; }
+.theme-clean .crt-flicker { animation: none !important; }
+.theme-clean .navi-panel { box-shadow: 0 0 0 1px rgba(0,240,255,0.2); }
+
+.theme-hc {
+  --navi-bg: #000;
+  --navi-panel: #000;
+  --navi-text: #ffffff;
+  --navi-cyan: #00ffff;
+  --navi-cyan-glow: rgba(0, 255, 255, 0.7);
 }
